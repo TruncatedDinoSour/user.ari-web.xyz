@@ -11,6 +11,24 @@
     force = true
 
 [[redirects]]
+    from = "/robots.txt"
+    to = "https://ari-web.xyz/robots.txt"
+    status = 200
+    force = true
+
+[[redirects]]
+    from = "/sitemap.xml"
+    to = "https://ari-web.xyz/sitemap.xml"
+    status = 200
+    force = true
+
+[[redirects]]
+    from = "/netlify.toml"
+    to = "https://ari-web.xyz/404.files.xyz"
+    status = 404
+    force = true
+
+[[redirects]]
     from = "/*"
     to = "https://ari-web.xyz/404.comment.xyz"
     status = 404
