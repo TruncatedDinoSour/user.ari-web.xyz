@@ -3,13 +3,17 @@
 *::after {
     margin: 0;
     padding: 0;
+
+    -webkit-box-sizing: border-box;
     box-sizing: border-box;
+
     background-color: #14171c;
     color: whitesmoke;
     font-family: sans-serif;
 
     -ms-overflow-style: none;
     scrollbar-width: none;
+
     scroll-behavior: smooth;
 }
 
@@ -17,7 +21,8 @@
     display: none;
 }
 
-code, code * {
+code,
+code * {
     font-family: monospace;
     font-weight: bold;
 }
@@ -44,9 +49,16 @@ body {
     *,
     *::before,
     *::after {
+        -webkit-animation-duration: 0.01ms !important;
         animation-duration: 0.01ms !important;
+
+        -webkit-animation-iteration-count: 1 !important;
         animation-iteration-count: 1 !important;
+
+        -webkit-transition-duration: 0.01ms !important;
+        -o-transition-duration: 0.01ms !important;
         transition-duration: 0.01ms !important;
+
         scroll-behavior: auto !important;
         scroll-behavior: auto;
     }
