@@ -1,0 +1,53 @@
+*,
+*::before,
+*::after {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    background-color: #14171c;
+    color: whitesmoke;
+    font-family: sans-serif;
+
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+    scroll-behavior: smooth;
+}
+
+::-webkit-scrollbar {
+    display: none;
+}
+
+code, code * {
+    font-family: monospace;
+    font-weight: bold;
+}
+
+h1 {
+    margin: 0.3em 0 0.3em 0;
+}
+
+body {
+    margin: auto;
+    min-height: 100vh;
+    text-rendering: optimizeSpeed;
+    line-height: 1.5;
+    width: 1350px;
+    padding: 3em;
+}
+
+.utterances {
+    margin: initial;
+    margin-top: 2em;
+}
+
+@media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+        scroll-behavior: auto !important;
+        scroll-behavior: auto;
+    }
+}
