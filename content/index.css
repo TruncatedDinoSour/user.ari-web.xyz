@@ -14,11 +14,6 @@
     word-wrap: break-word;
     word-break: break-all;
 
-    white-space: pre-wrap;
-    white-space: -moz-pre-wrap;
-    white-space: -pre-wrap;
-    white-space: -o-pre-wrap;
-
     -ms-overflow-style: none;
     scrollbar-width: none;
 
@@ -30,9 +25,16 @@
 }
 
 code,
-code * {
+code *,
+pre,
+pre * {
     font-family: monospace;
     font-weight: bold;
+
+    white-space: pre-wrap;
+    white-space: -moz-pre-wrap;
+    white-space: -pre-wrap;
+    white-space: -o-pre-wrap;
 }
 
 h1 {
