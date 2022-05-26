@@ -21,6 +21,10 @@ have JavaScript disabled so lol
 -   No ads pls
 -   You can do basically anything else, follow GitHub's guidelines and rules restrictions though
 
-# URL
+## Credits
+
+-   [Utterances -- comment section](https://utteranc.es/)
+
+## URL
 
 <https://user.ari-web.xyz/>
