@@ -36,7 +36,7 @@ body {
     min-height: 100vh;
     text-rendering: optimizeSpeed;
     line-height: 1.5;
-    width: 1350px;
+    max-width: 1350px;
     padding: 3em;
 }
 
