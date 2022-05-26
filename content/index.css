@@ -11,6 +11,9 @@
     color: whitesmoke;
     font-family: sans-serif;
 
+    word-wrap: break-word;
+    word-break: break-all;
+
     -ms-overflow-style: none;
     scrollbar-width: none;
 
