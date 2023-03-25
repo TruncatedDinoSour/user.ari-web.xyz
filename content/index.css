@@ -1,58 +1,154 @@
+:root {
+    color-scheme: dark;
+
+    --bg: #181818;
+    --bg1: #202020;
+    --pr: #87afaf;
+}
+
 *,
 *::before,
 *::after {
-    margin: 0;
-    padding: 0;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
 
     -webkit-box-sizing: border-box;
     box-sizing: border-box;
 
-    background-color: #14171c;
-    color: whitesmoke;
-    font-family: sans-serif;
-
     word-wrap: break-word;
-    word-break: break-all;
-
-    -ms-overflow-style: none;
-    scrollbar-width: none;
 
     scroll-behavior: smooth;
+    background-color: var(--bg);
+
+    color: whitesmoke;
+    font-family: sans-serif;
 }
 
 ::-webkit-scrollbar {
     display: none;
 }
 
+p {
+    white-space: pre-wrap;
+}
+
 code,
 code *,
 pre,
 pre * {
-    font-family: monospace;
-    font-weight: bold;
-
     white-space: pre-wrap;
     white-space: -moz-pre-wrap;
     white-space: -pre-wrap;
     white-space: -o-pre-wrap;
 }
 
-h1 {
-    margin: 0.3em 0 0.3em 0;
-}
-
 body {
     margin: auto;
+    padding: 2rem;
+    max-width: 1100px;
     min-height: 100vh;
     text-rendering: optimizeSpeed;
-    line-height: 1.5;
-    max-width: 1350px;
-    padding: 3em;
 }
 
-.utterances {
-    margin: initial;
-    margin-top: 2em;
+li {
+    margin: 0.5em;
+}
+
+code {
+    white-space: pre-wrap !important;
+}
+
+#count,
+a {
+    color: var(--pr);
+    text-decoration: none;
+}
+
+a {
+    font-style: italic;
+}
+
+a:hover {
+    text-decoration: underline;
+}
+
+button {
+    border: none;
+}
+
+button:hover,
+button:focus {
+    cursor: pointer;
+    background-color: var(--bg1);
+}
+
+.comment-section {
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+}
+
+.comment-section > :first-child {
+    display: -ms-grid;
+    display: grid;
+    -ms-grid-columns: 4fr 1em 1fr 1em 1fr;
+    grid-template-columns: 4fr 1fr 1fr;
+    grid-gap: 1em;
+}
+
+.comment-section > :first-child > textarea {
+    min-height: 5rem;
+    resize: vertical;
+    border: 1px solid;
+    padding: 0.5em;
+}
+
+#comments > li:not([data-readmore]):not([data-skip]) > :first-child {
+    display: -ms-grid;
+    display: grid;
+    -ms-grid-columns: -webkit-max-content 0.5em auto;
+    -ms-grid-columns: max-content 0.5em auto;
+    grid-template-columns: -webkit-max-content auto;
+    grid-template-columns: max-content auto;
+    grid-gap: 0.5em;
+}
+
+#comments
+    > li:not([data-readmore]):not([data-skip])
+    > :first-child
+    > :nth-child(2) {
+    color: lightgray;
+}
+
+#comments
+    > li:not([data-readmore]):not([data-skip])
+    > :first-child
+    > :nth-child(2)::after {
+    content: " says ...";
+    font-style: italic;
+    color: gray;
+}
+
+#comments > li:not([data-readmore]):not([data-skip]) > :nth-child(2) {
+    white-space: pre-wrap;
+}
+
+#comments > li:not([data-readmore]):not([data-skip]) > :nth-child(2)::before,
+#comments > li:not([data-readmore]):not([data-skip]) > :nth-child(2)::after {
+    content: ' " ';
+    color: gray;
+}
+
+@media only screen and (max-width: 800px) {
+    .comment-section > :first-child,
+    .comment-section > :first-child * {
+        display: block;
+        width: 100%;
+        margin-bottom: 0.5em;
+    }
+
+    .comment-section > :first-child > button {
+        padding: 1em;
+    }
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -70,6 +166,5 @@ body {
         transition-duration: 0.01ms !important;
 
         scroll-behavior: auto !important;
-        scroll-behavior: auto;
     }
 }

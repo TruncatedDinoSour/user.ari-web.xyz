@@ -55,31 +55,22 @@
 
             //--><!]]>
         </script>
+
+        <script src="/content/index.js" defer></script>
     </head>
 
     <body>
-        <h1>
-            <a href="javascript:window.scrollTo(0, document.body.scrollHeight)"
-                >( bottom )</a
-            >
-        </h1>
+        <h1>ari-web comments &amp; user opinion</h1>
 
-        <h1>Ari-web comments &amp; user opinion</h1>
+        <p>hello,
 
-        <pre><code>hello, this the comment and opinion
-section of my website,
-i didnt want to put it into every page
-so i extracted this into its seperate
-domain so everyone who wants can use this
-and who doesnt, why should they download
-useless bloat on every page load?
+this the comment and opinion section of my website, i didnt
+want to put it into every page so i extracted this into its seperate
+subdomain so everyone who wants can use this and who doesnt, why should
+they download useless bloat on every page load ?
 
-and either way, some sites of mine (like <a href="https://blog.ari-web.xyz" target="_blank">my blog</a>)
-have javascript disabled so lol
-
-<b>just in case you dont have a github account, you can email me : <a href="mailto:ari.web.xyz@gmail.com">ari.web.xyz@gmail.com</a></b>
-
-btw, source code : <a href="/git">git</a></code></pre>
+source code : <a href="/git">git</a>
+server souce : <a href="https://server.ari-web.xyz/git">server.ari-web.xyz</a></p>
 
         <h1>rules</h1>
         <ul>
@@ -88,58 +79,22 @@ btw, source code : <a href="/git">git</a></code></pre>
             <li>dont be an asshole</li>
             <li>no ads pls</li>
             <li>
-                you can do basically anything else, follow githubs guidelines
-                and rules restrictions though
+                you can do basically anything else, just dont send illegal or
+                unacceptable shit, dont be annoying
             </li>
         </ul>
 
-        <h1>credits</h1>
-        <ul>
-            <li>
-                <a href="https://utteranc.es/" target="_blank"
-                    >utterances -- comment section</a
-                >
-            </li>
-        </ul>
+        <h2><span id="count">?</span> comment( s ) available on ari-web to read</h2>
 
-        <noscript>
-            <style>
-                .err,
-                .err * {
-                    background-color: #c24a4a;
-                }
-
-                .err a {
-                    color: #e8cccc;
-                    text-decoration: underline;
-                }
-
-                .err {
-                    width: max-content;
-                    padding: 1em;
-                    margin-top: 1em;
-                    color: black;
-                }
-            </style>
-
-            <h1 class="err">
-                couldnt load
-                <a href="https://utteranc.es/">utterances comments</a>:
-                javascript disabled
-            </h1>
-        </noscript>
-
-        <script
-            src="https://utteranc.es/client.js"
-            repo="TruncatedDinosour/user.ari-web.xyz"
-            issue-term="Comment"
-            theme="dark-blue"
-            crossorigin="anonymous"
-            async
-        ></script>
-
-        <h1>
-            <a href="javascript:window.scrollTo(0, 0)">( top )</a>
-        </h1>
+        <div class="comment-section">
+            <div>
+                <textarea id="comment" maxlength="1024" placeholder="comment ..."></textarea>
+                <button id="send-comment">comment</button>
+                <button onclick="window.localStorage.clear();handle_auth();">
+                    change username
+                </button>
+            </div>
+            <ul id="comments"></ul>
+        </div>
     </body>
 </html>

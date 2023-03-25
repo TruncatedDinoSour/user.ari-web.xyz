@@ -1,0 +1,23 @@
+{
+    "name": "user.ari-web.xyz",
+    "version": "1.0.0",
+    "description": "comments for ari-web",
+    "main": "index.js",
+    "scripts": {
+        "test": "echo \"Error: no test specified\" && exit 1"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/TruncatedDinosour/user.ari-web.xyz.git"
+    },
+    "keywords": [],
+    "author": "",
+    "license": "SEE LICENSE IN LICENSE",
+    "bugs": {
+        "url": "https://github.com/TruncatedDinosour/user.ari-web.xyz/issues"
+    },
+    "homepage": "https://github.com/TruncatedDinosour/user.ari-web.xyz#readme",
+    "devDependencies": {
+        "eslint": "^8.36.0"
+    }
+}
