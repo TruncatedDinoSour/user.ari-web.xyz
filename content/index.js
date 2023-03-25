@@ -3,7 +3,7 @@
 const COMMENTS_DEC = 20;
 
 async function api(endpoint, options) {
-    return await fetch(`http://127.0.0.1:5000/${endpoint}`, options);
+    return await fetch(`https://server.ari-web.xyz/${endpoint}`, options);
 }
 
 function linkify(input) {
