@@ -83,8 +83,7 @@ button:focus {
 }
 
 .comment-section {
-    margin-top: 1rem;
-    margin-bottom: 1rem;
+    margin: 1rem;
 }
 
 .comment-section > :first-child {
@@ -100,6 +99,8 @@ button:focus {
     resize: vertical;
     border: 1px solid;
     padding: 0.5em;
+    border: none;
+    border-left: 2px solid whitesmoke;
 }
 
 #comments > li:not([data-readmore]):not([data-skip]) > :first-child {
@@ -126,6 +127,13 @@ button:focus {
     content: " says ...";
     font-style: italic;
     color: gray;
+}
+
+#comments > li {
+    list-style: none;
+    margin-bottom: 1.5em;
+    border-left: 2px solid whitesmoke;
+    padding-left: 0.5em;
 }
 
 #comments > li:not([data-readmore]):not([data-skip]) > :nth-child(2) {
