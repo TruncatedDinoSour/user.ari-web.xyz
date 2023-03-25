@@ -25,10 +25,6 @@ BTW, source code: git
 -   No ads pls
 -   You can do basically anything else, follow GitHub's guidelines and rules restrictions though
 
-## Credits
-
--   [Utterances -- comment section](https://utteranc.es/)
-
 ## URL
 
 <https://user.ari-web.xyz/>
