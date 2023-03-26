@@ -72,8 +72,7 @@ button {
     border: none;
 }
 
-button:hover,
-button:focus {
+button {
     cursor: pointer;
     background-color: var(--bg1);
 }
