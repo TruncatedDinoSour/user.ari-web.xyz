@@ -1,3 +1,6 @@
+[build]
+    command = "npm run build"
+
 [[redirects]]
     from = "/git/*"
     to = "https://ari-web.xyz/gh/user.ari-web.xyz/:splat"
