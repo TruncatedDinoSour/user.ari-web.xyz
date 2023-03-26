@@ -74,7 +74,6 @@ button {
 
 button {
     cursor: pointer;
-    background-color: var(--bg1);
 }
 
 .comment-section {
@@ -96,6 +95,10 @@ button {
     padding: 0.5em;
     border: none;
     border-left: 2px solid whitesmoke;
+}
+
+.comment-section > :first-child > button {
+    background-color: var(--bg1);
 }
 
 #comments > li:not([data-readmore]):not([data-skip]) > :first-child {
