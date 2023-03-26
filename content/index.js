@@ -105,6 +105,7 @@ async function load_comments(comments, noscroll) {
         });
     comments.comments--;
 }
+
 async function load_comment_field(comments, old_comments_count) {
     let comment = document.getElementById("comment");
     let send = document.getElementById("send-comment");
@@ -158,6 +159,7 @@ async function handle_auth() {
     let username = window.localStorage.getItem("username");
     while (!username) username = prompt("username");
     window.localStorage.setItem("username", username);
+    document.getElementById("comment").innerText = `${username} says ...`;
 }
 
 async function main() {
