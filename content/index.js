@@ -25,15 +25,15 @@ function linkify(input) {
 
                 output.push(a);
             } else {
-                word.split(EMAIL).forEach((email) => {
-                    if (email.match(EMAIL)) {
+                word.split(EMAIL).forEach((word) => {
+                    if (word.match(EMAIL)) {
                         a = document.createElement("a");
                         a.target = "_blank";
-                        a.href = `mailto:${email}`;
+                        a.href = `mailto:${word}`;
 
-                        a.innerText = email;
+                        a.innerText = word;
                         output.push(a);
-                    } else output.push(document.createTextNode(email));
+                    } else output.push(document.createTextNode(word));
                 });
             }
         });
