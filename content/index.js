@@ -159,7 +159,10 @@ async function handle_auth() {
     let username = window.localStorage.getItem("username");
     while (!username) username = prompt("username");
     window.localStorage.setItem("username", username);
-    document.getElementById("comment").innerText = `${username} says ...`;
+
+    document
+        .getElementById("comment")
+        .setAttribute("placeholder", `${username} says ...`);
 }
 
 async function main() {
