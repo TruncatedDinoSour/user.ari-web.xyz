@@ -118,6 +118,7 @@ button:focus {
     > :first-child
     > :nth-child(2) {
     color: lightgray;
+    margin-bottom: 0.5em;
 }
 
 #comments
@@ -133,7 +134,7 @@ button:focus {
     list-style: none;
     margin-bottom: 1.5em;
     border-left: 2px solid whitesmoke;
-    padding-left: 0.5em;
+    padding-left: 0.8em;
 }
 
 #comments > li:not([data-readmore]):not([data-skip]) > :nth-child(2) {
@@ -142,8 +143,15 @@ button:focus {
 
 #comments > li:not([data-readmore]):not([data-skip]) > :nth-child(2)::before,
 #comments > li:not([data-readmore]):not([data-skip]) > :nth-child(2)::after {
-    content: ' " ';
     color: gray;
+}
+
+#comments > li:not([data-readmore]):not([data-skip]) > :nth-child(2)::before {
+    content: '" ';
+}
+
+#comments > li:not([data-readmore]):not([data-skip]) > :nth-child(2)::after {
+    content: ' "';
 }
 
 @media only screen and (max-width: 800px) {

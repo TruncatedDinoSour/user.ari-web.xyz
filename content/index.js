@@ -2,6 +2,10 @@
 
 const COMMENTS_DEC = 20;
 
+const LINK = /([a-zA-Z+]{3,9}:\/\/[A-Za-z0-9\-._~:/?#[\]@!$&'()*+,;%=]{1,256})/;
+const EMAIL =
+    /([a-zA-Z0-9]+(?:\.[a-zA-Z0-9]+)*@[a-zA-Z0-9]+(?:\.[a-zA-Z0-9]+)*)/;
+
 async function api(endpoint, options) {
     // return await fetch(`http://127.0.0.1:5000/${endpoint}`, options);
     return await fetch(`https://server.ari-web.xyz/${endpoint}`, options);
@@ -9,25 +13,30 @@ async function api(endpoint, options) {
 
 function linkify(input) {
     let output = [];
-    let words = input.split(/(\s+)/);
 
-    let link =
-        /^https?:\/\/(?:www\.)?[-a-zA-Z0-9@:%._\+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b(?:[-a-zA-Z0-9()@:%_\+.~#?&\/=]*)$/;
-    let email = /^([a-zA-Z0-9_\-\.]+)@([a-zA-Z0-9_\-\.]+)\.([a-zA-Z]{2,5})$/;
+    input.split(/(\s+)/).forEach((word) => {
+        let a;
 
-    words.forEach((word) => {
-        let a = document.createElement("a");
-        a.target = "_blank";
+        word.split(LINK).forEach((word) => {
+            if (word.match(LINK)) {
+                a = document.createElement("a");
+                a.target = "_blank";
+                a.href = a.innerText = word;
 
-        if (word.match(link)) {
-            a.href = word;
-            a.innerText = word;
-            output.push(a);
-        } else if (word.match(email)) {
-            a.href = `mailto:${word}`;
-            a.innerText = word;
-            output.push(a);
-        } else output.push(document.createTextNode(word));
+                output.push(a);
+            } else {
+                word.split(EMAIL).forEach((email) => {
+                    if (email.match(EMAIL)) {
+                        a = document.createElement("a");
+                        a.target = "_blank";
+                        a.href = `mailto:${email}`;
+
+                        a.innerText = email;
+                        output.push(a);
+                    } else output.push(document.createTextNode(email));
+                });
+            }
+        });
     });
 
     return output;
