@@ -2,9 +2,10 @@
 
 const COMMENTS_DEC = 20;
 
-const LINK = /([a-zA-Z+]{3,9}:\/\/[A-Za-z0-9\-._~:/?#[\]@!$&'()*+,;%=]{1,256})/;
+const LINK =
+    /((?:[a-z]+\+)?(?:https?|s?ftp|ssh|telnet|smtp|imap|pop3|ldap):\/\/[a-z0-9\-._~:/?#[\]@!$&'()*+,;%=]+)/i;
 const EMAIL =
-    /([a-zA-Z0-9]+(?:\.[a-zA-Z0-9]+)*@[a-zA-Z0-9]+(?:\.[a-zA-Z0-9]+)*)/;
+    /([a-z0-9+_-]+(?:\.[a-z0-9+_-]+)*@[a-z0-9+_-]+(?:\.[a-z0-9+_-]+)*)/i;
 
 async function api(endpoint, options) {
     // return await fetch(`http://127.0.0.1:5000/${endpoint}`, options);
