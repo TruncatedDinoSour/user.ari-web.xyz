@@ -187,8 +187,71 @@ function load_hash(noscroll) {
     });
 }
 
+function load_settings() {
+    let settings = document.getElementById("settings");
+    let rules = document.styleSheets[0].cssRules[0].style;
+
+    Array.from(rules)
+        .filter((v) => v.startsWith("--"))
+        .forEach((v) => {
+            let li = document.createElement("li");
+            let label = document.createElement("label");
+            let input = document.createElement("input");
+
+            input.id = label.htmlFor = label.innerText = v;
+            input.value =
+                window.localStorage.getItem(v) || rules.getPropertyValue(v);
+
+            rules.setProperty(v, input.value);
+
+            input.onkeyup = () => {
+                window.localStorage.setItem(v, input.value);
+                rules.setProperty(v, input.value);
+            };
+
+            li.appendChild(label);
+            li.appendChild(input);
+
+            settings.appendChild(li);
+        });
+
+    let style = document.createElement("style");
+    document.head.appendChild(style);
+
+    let li = document.createElement("li");
+    let textarea = document.createElement("textarea");
+
+    li.setAttribute("data-text", true);
+
+    textarea.placeholder = "your custom css rules here";
+
+    textarea.onkeyup = () => {
+        style.innerText = textarea.value;
+    };
+
+    textarea.onkeydown = (e) => {
+        if (e.key !== "Tab") return;
+
+        let end = textarea.selectionEnd;
+        let text = textarea.value;
+
+        textarea.value =
+            text.substring(0, textarea.selectionStart) +
+            "    " +
+            text.substring(end);
+
+        textarea.selectionEnd = end + 4;
+
+        e.preventDefault();
+    };
+
+    li.appendChild(textarea);
+    settings.appendChild(li);
+}
+
 async function main() {
     handle_auth();
+    load_settings();
 
     let comments = document.getElementById("comments");
 

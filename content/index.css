@@ -4,6 +4,17 @@
     --bg: #181818;
     --bg1: #202020;
     --pr: #87afaf;
+
+    --quote-border: 2px solid whitesmoke;
+    --comment-padding: 0.8em;
+    --comment-spacing: 1.3em;
+
+    --comment-section-spacing: 0.5em;
+
+    --author-clr: lightgray;
+    --author-sc: gray;
+
+    --settings-padding: 0.3em;
 }
 
 *,
@@ -37,7 +48,7 @@ body {
 }
 
 li {
-    margin: 0.5em;
+    margin: var(--comment-section-spacing);
 }
 
 #count,
@@ -59,6 +70,10 @@ button {
     cursor: pointer;
 }
 
+textarea {
+    resize: vertical;
+}
+
 .comment-section {
     margin: 1rem;
 }
@@ -73,10 +88,9 @@ button {
 
 .comment-section > :first-child > textarea {
     min-height: 5rem;
-    resize: vertical;
-    padding: 0.5em;
+    padding: var(--comment-padding);
     border: none;
-    border-left: 2px solid whitesmoke;
+    border-left: var(--quote-border);
 }
 
 .comment-section > :first-child > button {
@@ -90,19 +104,19 @@ button {
 #comments > li:not([data-readmore]):not([data-skip]) > :first-child {
     display: -ms-grid;
     display: grid;
-    -ms-grid-columns: -webkit-max-content 0.5em auto;
-    -ms-grid-columns: max-content 0.5em auto;
+    -ms-grid-columns: -webkit-max-content var(--comment-section-spacing) auto;
+    -ms-grid-columns: max-content var(--comment-section-spacing) auto;
     grid-template-columns: -webkit-max-content auto;
     grid-template-columns: max-content auto;
-    grid-gap: 0.5em;
+    grid-gap: var(--comment-section-spacing);
 }
 
 #comments
     > li:not([data-readmore]):not([data-skip])
     > :first-child
     > :nth-child(2) {
-    color: lightgray;
-    margin-bottom: 0.5em;
+    color: var(--author-clr);
+    margin-bottom: var(--comment-section-spacing);
 }
 
 #comments
@@ -111,14 +125,14 @@ button {
     > :nth-child(2)::after {
     content: " says ...";
     font-style: italic;
-    color: gray;
+    color: var(--author-sc);
 }
 
 #comments > li {
     list-style: none;
-    margin-bottom: 1.5em;
-    border-left: 2px solid whitesmoke;
-    padding: 0.8em;
+    margin-bottom: var(--comment-spacing);
+    border-left: var(--quote-border);
+    padding: var(--comment-padding);
 }
 
 #comments > li:not([data-readmore]):not([data-skip]) > :nth-child(2) {
@@ -127,7 +141,7 @@ button {
 
 #comments > li:not([data-readmore]):not([data-skip]) > :nth-child(2)::before,
 #comments > li:not([data-readmore]):not([data-skip]) > :nth-child(2)::after {
-    color: gray;
+    color: var(--author-sc);
 }
 
 #comments > li:not([data-readmore]):not([data-skip]) > :nth-child(2)::before {
@@ -142,12 +156,32 @@ button {
     --bg: var(--bg1);
 }
 
+#settings > li,
+#settings > li * {
+    list-style: none;
+    width: 100%;
+}
+
+#settings > li:not([data-text]) {
+    display: grid;
+    grid-template-columns: auto auto;
+}
+
+#settings > li > textarea,
+#settings > li > input {
+    padding: var(--settings-padding);
+}
+
+#settings > li > textarea {
+    min-height: 4em;
+}
+
 @media only screen and (max-width: 800px) {
     .comment-section > :first-child,
     .comment-section > :first-child * {
         display: block;
         width: 100%;
-        margin-bottom: 0.5em;
+        margin-bottom: var(--comment-section-spacing);
     }
 
     .comment-section > :first-child > button {
