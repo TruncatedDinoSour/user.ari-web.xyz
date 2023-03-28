@@ -195,23 +195,7 @@ function load_settings() {
         .filter((v) => v.startsWith("--"))
         .forEach((v) => {
             let li = document.createElement("li");
-            let label = document.createElement("label");
-            let input = document.createElement("input");
-
-            input.id = label.htmlFor = label.innerText = v;
-            input.value =
-                window.localStorage.getItem(v) || rules.getPropertyValue(v);
-
-            rules.setProperty(v, input.value);
-
-            input.onkeyup = () => {
-                window.localStorage.setItem(v, input.value);
-                rules.setProperty(v, input.value);
-            };
-
-            li.appendChild(label);
-            li.appendChild(input);
-
+            li.innerText = `${v} = ${rules.getPropertyValue(v)}`;
             settings.appendChild(li);
         });
 
@@ -221,12 +205,12 @@ function load_settings() {
     let li = document.createElement("li");
     let textarea = document.createElement("textarea");
 
-    li.setAttribute("data-text", true);
-
     textarea.placeholder = "your custom css rules here";
+    textarea.value = style.innerText = window.localStorage.getItem("css");
 
     textarea.onkeyup = () => {
         style.innerText = textarea.value;
+        window.localStorage.setItem("css", textarea.value);
     };
 
     textarea.onkeydown = (e) => {

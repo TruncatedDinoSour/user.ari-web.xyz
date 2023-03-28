@@ -162,18 +162,14 @@ textarea {
     width: 100%;
 }
 
-#settings > li:not([data-text]) {
-    display: grid;
-    grid-template-columns: auto auto;
-}
-
-#settings > li > textarea,
-#settings > li > input {
+#settings > li > textarea {
+    min-height: 4em;
     padding: var(--settings-padding);
 }
 
-#settings > li > textarea {
-    min-height: 4em;
+#settings > :first-child,
+#settings > :nth-last-child(2) {
+    padding-bottom: var(--comment-spacing);
 }
 
 @media only screen and (max-width: 800px) {
