@@ -57,6 +57,7 @@ function new_comment(cid, cauthor, ccontent) {
     if (cid) {
         let perm_id = document.createElement("a");
         perm_id.innerText = perm_id.href = `#${cid}`;
+        li.id = cid;
         author.appendChild(perm_id);
     }
 
