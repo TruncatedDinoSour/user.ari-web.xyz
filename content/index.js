@@ -6,6 +6,7 @@ const LINK =
     /((?:[a-z]+\+)?(?:https?|s?ftp|ssh|telnet|smtp|imap|pop3|ldap):\/\/[a-z0-9\-._~:/?#[\]@!$&'()*+,;%=]+)/i;
 const EMAIL =
     /([a-z0-9+_-]+(?:\.[a-z0-9+_-]+)*@[a-z0-9+_-]+(?:\.[a-z0-9+_-]+)*)/i;
+const HASH = /#\d+/;
 
 async function api(endpoint, options) {
     // return await fetch(`http://127.0.0.1:5000/${endpoint}`, options);
@@ -18,26 +19,30 @@ function linkify(input) {
     input.split(/(\s+)/).forEach((word) => {
         let a;
 
-        word.split(LINK).forEach((word) => {
-            if (word.match(LINK)) {
-                a = document.createElement("a");
-                a.target = "_blank";
-                a.href = a.innerText = word;
+        if (word.match(HASH)) {
+            a = document.createElement("a");
+            a.href = a.innerText = word;
+        } else
+            word.split(LINK).forEach((word) => {
+                if (word.match(LINK)) {
+                    a = document.createElement("a");
+                    a.target = "_blank";
+                    a.href = a.innerText = word;
 
-                output.push(a);
-            } else {
-                word.split(EMAIL).forEach((word) => {
-                    if (word.match(EMAIL)) {
-                        a = document.createElement("a");
-                        a.target = "_blank";
-                        a.href = `mailto:${word}`;
+                    output.push(a);
+                } else {
+                    word.split(EMAIL).forEach((word) => {
+                        if (word.match(EMAIL)) {
+                            a = document.createElement("a");
+                            a.target = "_blank";
+                            a.href = `mailto:${word}`;
 
-                        a.innerText = word;
-                        output.push(a);
-                    } else output.push(document.createTextNode(word));
-                });
-            }
-        });
+                            a.innerText = word;
+                            output.push(a);
+                        } else output.push(document.createTextNode(word));
+                    });
+                }
+            });
     });
 
     return output;
