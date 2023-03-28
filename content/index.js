@@ -209,7 +209,7 @@ function load_settings() {
     textarea.value = style.innerText = window.localStorage.getItem("css");
     textarea.spellcheck = false;
 
-    textarea.onkeyup = () => {
+    textarea.onkeyup = textarea.onchange = () => {
         style.innerText = textarea.value;
         window.localStorage.setItem("css", textarea.value);
     };
