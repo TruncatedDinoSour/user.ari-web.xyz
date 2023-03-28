@@ -22,6 +22,7 @@ function linkify(input) {
         if (word.match(HASH)) {
             a = document.createElement("a");
             a.href = a.innerText = word;
+            output.push(a);
         } else
             word.split(LINK).forEach((word) => {
                 if (word.match(LINK)) {
