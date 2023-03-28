@@ -7,6 +7,7 @@ const LINK =
 const EMAIL =
     /([a-z0-9+_-]+(?:\.[a-z0-9+_-]+)*@[a-z0-9+_-]+(?:\.[a-z0-9+_-]+)*)/i;
 const HASH = /^#\d+$/;
+const HIGHLIGHT_CLASS = "highlight-comment";
 
 async function api(endpoint, options) {
     // return await fetch(`http://127.0.0.1:5000/${endpoint}`, options);
@@ -58,6 +59,7 @@ function new_comment(cid, cauthor, ccontent) {
         let perm_id = document.createElement("a");
         perm_id.innerText = perm_id.href = `#${cid}`;
         li.id = cid;
+
         author.appendChild(perm_id);
     }
 
@@ -100,6 +102,7 @@ async function load_comments(comments, noscroll) {
     li.onclick = async () => {
         li.remove();
         await load_comments(comments);
+        load_hash(true);
     };
 
     comments.appendChild(li);
@@ -109,7 +112,7 @@ async function load_comments(comments, noscroll) {
     comments.comments--;
 }
 
-async function load_comment_field(comments) {
+function load_comment_field(comments) {
     let comment = document.getElementById("comment");
     let send = document.getElementById("send-comment");
 
@@ -152,7 +155,7 @@ async function load_comment_field(comments) {
     };
 }
 
-async function handle_auth() {
+function handle_auth() {
     let username = window.localStorage.getItem("username")?.trim();
     while (!username) username = prompt("username")?.trim();
     window.localStorage.setItem("username", username);
@@ -162,8 +165,30 @@ async function handle_auth() {
         .setAttribute("placeholder", `${username} says ...`);
 }
 
+function load_hash(noscroll) {
+    let hash = window.location.hash.slice(1);
+    window.highlight = hash ? document.getElementById(hash) : null;
+
+    if (hash && window.highlight) {
+        window.highlight.classList.add(HIGHLIGHT_CLASS);
+        if (!noscroll) window.highlight.scrollIntoView();
+    }
+
+    addEventListener("hashchange", () => {
+        window.highlight?.classList.remove(HIGHLIGHT_CLASS);
+
+        let hash = window.location.hash.slice(1);
+        window.highlight = document.getElementById(hash);
+
+        if (hash && window.highlight) {
+            window.highlight.classList.add(HIGHLIGHT_CLASS);
+            if (!noscroll) window.highlight.scrollIntoView();
+        }
+    });
+}
+
 async function main() {
-    await handle_auth();
+    handle_auth();
 
     let comments = document.getElementById("comments");
 
@@ -174,8 +199,9 @@ async function main() {
         : comments.old_comments;
     document.getElementById("count").innerText = comments.old_comments;
 
-    await load_comment_field(comments);
+    load_comment_field(comments);
     await load_comments(comments, true);
+    load_hash();
 }
 
 document.addEventListener("DOMContentLoaded", main);

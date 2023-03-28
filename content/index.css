@@ -101,6 +101,10 @@ button {
     background-color: var(--bg1);
 }
 
+#comments {
+    padding: 0;
+}
+
 #comments > li:not([data-readmore]):not([data-skip]) > :first-child {
     display: -ms-grid;
     display: grid;
@@ -132,7 +136,7 @@ button {
     list-style: none;
     margin-bottom: 1.5em;
     border-left: 2px solid whitesmoke;
-    padding-left: 0.8em;
+    padding: 0.8em;
 }
 
 #comments > li:not([data-readmore]):not([data-skip]) > :nth-child(2) {
@@ -150,6 +154,10 @@ button {
 
 #comments > li:not([data-readmore]):not([data-skip]) > :nth-child(2)::after {
     content: ' "';
+}
+
+.highlight-comment {
+    --bg: var(--bg1);
 }
 
 @media only screen and (max-width: 800px) {
