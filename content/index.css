@@ -163,7 +163,7 @@ textarea {
 }
 
 #settings > li > textarea {
-    min-height: 4em;
+    min-height: 5em;
     padding: var(--settings-padding);
 }
 
