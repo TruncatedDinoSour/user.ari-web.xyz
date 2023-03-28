@@ -28,16 +28,6 @@
     display: none;
 }
 
-code,
-code *,
-pre,
-pre * {
-    white-space: pre-wrap;
-    white-space: -moz-pre-wrap;
-    white-space: -pre-wrap;
-    white-space: -o-pre-wrap;
-}
-
 body {
     margin: auto;
     padding: 2rem;
@@ -48,10 +38,6 @@ body {
 
 li {
     margin: 0.5em;
-}
-
-code {
-    white-space: pre-wrap !important;
 }
 
 #count,
@@ -88,7 +74,6 @@ button {
 .comment-section > :first-child > textarea {
     min-height: 5rem;
     resize: vertical;
-    border: 1px solid;
     padding: 0.5em;
     border: none;
     border-left: 2px solid whitesmoke;
