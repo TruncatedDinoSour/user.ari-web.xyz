@@ -209,10 +209,13 @@ function load_settings() {
     textarea.value = style.innerText = window.localStorage.getItem("css");
     textarea.spellcheck = false;
 
-    textarea.onkeyup = textarea.onchange = () => {
-        style.innerText = textarea.value;
-        window.localStorage.setItem("css", textarea.value);
-    };
+    textarea.onkeyup =
+        textarea.onchange =
+        textarea.onpaste =
+            () => {
+                style.innerText = textarea.value;
+                window.localStorage.setItem("css", textarea.value);
+            };
 
     textarea.onkeydown = (e) => {
         if (e.key !== "Tab") return;
