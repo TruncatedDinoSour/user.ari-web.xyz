@@ -15,6 +15,8 @@
     --author-sc: gray;
 
     --settings-padding: 0.3em;
+
+    --min-textbox-height: 5rem;
 }
 
 *,
@@ -72,6 +74,7 @@ button {
 
 textarea {
     resize: vertical;
+    min-height: var(--min-textbox-height);
 }
 
 .comment-section {
@@ -87,7 +90,6 @@ textarea {
 }
 
 .comment-section > :first-child > textarea {
-    min-height: 5rem;
     padding: var(--comment-padding);
     border: none;
     border-left: var(--quote-border);
@@ -163,7 +165,6 @@ textarea {
 }
 
 #settings > li > textarea {
-    min-height: 5em;
     padding: var(--settings-padding);
 }
 
