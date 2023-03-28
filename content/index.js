@@ -207,6 +207,7 @@ function load_settings() {
 
     textarea.placeholder = "your custom css rules here";
     textarea.value = style.innerText = window.localStorage.getItem("css");
+    textarea.spellcheck = false;
 
     textarea.onkeyup = () => {
         style.innerText = textarea.value;
