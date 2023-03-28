@@ -212,6 +212,8 @@ function load_settings() {
     textarea.onkeyup =
         textarea.onchange =
         textarea.onpaste =
+        textarea.oncut =
+        textarea.onblur =
             () => {
                 style.innerText = textarea.value;
                 window.localStorage.setItem("css", textarea.value);
