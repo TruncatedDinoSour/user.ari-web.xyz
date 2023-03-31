@@ -41,7 +41,12 @@ function linkify(input) {
 
                             a.innerText = word;
                             output.push(a);
-                        } else output.push(document.createTextNode(word));
+                        } else {
+                            let last = output[output.length - 1];
+
+                            if (last instanceof Text) last.textContent += word;
+                            else output.push(document.createTextNode(word));
+                        }
                     });
                 }
             });
@@ -52,8 +57,8 @@ function linkify(input) {
 
 function new_comment(cid, cauthor, ccontent) {
     let li = document.createElement("li");
-    let author = document.createElement("div");
-    let author_name = document.createElement("span");
+    let author = document.createElement("pre");
+    let author_name = document.createElement("pre");
 
     if (cid) {
         let perm_id = document.createElement("a");
@@ -67,7 +72,7 @@ function new_comment(cid, cauthor, ccontent) {
     author.appendChild(author_name);
     li.appendChild(author);
 
-    let content = document.createElement("div");
+    let content = document.createElement("pre");
 
     for (let elem of linkify(ccontent)) content.appendChild(elem);
 
@@ -160,9 +165,8 @@ function handle_auth() {
     while (!username) username = prompt("username")?.trim();
     window.localStorage.setItem("username", username);
 
-    document
-        .getElementById("comment")
-        .setAttribute("placeholder", `${username} says ...`);
+    let comment = document.getElementById("comment");
+    comment.placeholder = comment.title = `${username} says ...`;
 }
 
 function load_hash(noscroll) {
@@ -188,50 +192,98 @@ function load_hash(noscroll) {
 }
 
 function load_settings() {
+    /* load def values */
+
     let rules = document.styleSheets[0].cssRules[0].style;
+
+    let values = document.getElementById("values");
     let settings = document.getElementById("settings");
+
+    if (!window.localStorage.getItem("tab"))
+        window.localStorage.setItem("tab", "    ");
 
     Array.from(rules)
         .filter((v) => v.startsWith("--"))
         .forEach((v) => {
             let li = document.createElement("li");
             li.innerText = `${v} = ${rules.getPropertyValue(v)}`;
-            settings.appendChild(li);
+            values.appendChild(li);
         });
 
+    /* load settings */
+
+    function container(id, textarea, title, dostyle) {
+        let wrap = document.createElement("div");
+        let label_elm = document.createElement("label");
+
+        textarea.spellcheck = false;
+        textarea.value = window.localStorage.getItem(id);
+        textarea.placeholder =
+            textarea.title =
+            label_elm.innerText =
+            label_elm.title =
+                title;
+
+        label_elm.htmlFor = textarea.id = id;
+
+        if (dostyle) style.innerText = textarea.value;
+
+        wrap.appendChild(label_elm);
+        wrap.appendChild(textarea);
+
+        return wrap;
+    }
+
     let style = document.createElement("style");
-    let li = document.createElement("li");
-    let textarea = document.createElement("textarea");
 
-    textarea.placeholder = "your custom css rules here";
-    textarea.value = style.innerText = window.localStorage.getItem("css");
-    textarea.spellcheck = false;
+    let css_textarea = document.createElement("textarea");
+    let tab_textarea = document.createElement("textarea");
 
-    textarea.oninput = () => {
-        style.innerText = textarea.value;
-        window.localStorage.setItem("css", textarea.value);
+    css_textarea.oninput = () => {
+        style.innerText = css_textarea.value;
+        window.localStorage.setItem("css", css_textarea.value);
     };
 
-    textarea.onkeydown = (e) => {
-        if (e.key !== "Tab") return;
-
-        let end = textarea.selectionEnd;
-        let text = textarea.value;
-
-        textarea.value =
-            text.substring(0, textarea.selectionStart) +
-            "    " +
-            text.substring(end);
-
-        textarea.selectionEnd = end + 4;
-
-        e.preventDefault();
+    tab_textarea.oninput = () => {
+        tab_textarea.value = tab_textarea.value.replaceAll("\\t", "\t");
+        window.localStorage.setItem("tab", tab_textarea.value);
     };
 
-    li.appendChild(textarea);
-    settings.appendChild(li);
+    settings.appendChild(
+        container("css", css_textarea, "your custom css rules here", true)
+    );
+
+    settings.appendChild(
+        container(
+            "tab",
+            tab_textarea,
+            "tab character( s ) to use ( \\t for tab )"
+        )
+    );
 
     document.head.appendChild(style);
+}
+
+function load_textarea_controls() {
+    document.querySelectorAll("textarea").forEach((textarea) => {
+        textarea.onkeydown = (e) => {
+            if (e.key !== "Tab") return;
+
+            let end = textarea.selectionEnd;
+            let text = textarea.value;
+
+            let tab = window.localStorage.getItem("tab");
+
+            textarea.value =
+                text.substring(0, textarea.selectionStart) +
+                tab +
+                text.substring(end);
+
+            textarea.selectionEnd = end + tab.length;
+
+            e.preventDefault();
+        };
+    });
 }
 
 async function main() {
@@ -248,6 +300,8 @@ async function main() {
     document.getElementById("count").innerText = comments.old_comments;
 
     load_comment_field(comments);
+    load_textarea_controls();
+
     await load_comments(comments, true);
     load_hash();
 }

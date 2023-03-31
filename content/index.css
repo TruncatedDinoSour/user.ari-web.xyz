@@ -53,6 +53,11 @@ li {
     margin: var(--comment-section-spacing);
 }
 
+pre {
+    white-space: pre-wrap;
+    margin: 0;
+}
+
 #count,
 a {
     color: var(--pr);
@@ -137,10 +142,6 @@ textarea {
     padding: var(--comment-padding);
 }
 
-#comments > li:not([data-readmore]):not([data-skip]) > :nth-child(2) {
-    white-space: pre-wrap;
-}
-
 #comments > li:not([data-readmore]):not([data-skip]) > :nth-child(2)::before,
 #comments > li:not([data-readmore]):not([data-skip]) > :nth-child(2)::after {
     color: var(--author-sc);
@@ -158,19 +159,18 @@ textarea {
     --bg: var(--bg1);
 }
 
-#settings > li,
-#settings > li * {
-    list-style: none;
-    width: 100%;
-}
-
-#settings > li > textarea {
+#settings-out {
     padding: var(--settings-padding);
 }
 
-#settings > :first-child,
-#settings > :nth-last-child(2) {
-    padding-bottom: var(--comment-spacing);
+#settings-out *:not(label) {
+    width: 100%;
+}
+
+#settings {
+    display: grid;
+    grid-template-columns: auto auto;
+    grid-gap: var(--settings-padding);
 }
 
 @media only screen and (max-width: 800px) {
