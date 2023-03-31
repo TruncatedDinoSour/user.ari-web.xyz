@@ -168,8 +168,10 @@ textarea {
 }
 
 #settings {
+    display: -ms-grid;
     display: grid;
-    grid-template-columns: auto auto;
+    -ms-grid-columns: 3fr var(--settings-padding) 1fr;
+    grid-template-columns: 3fr 1fr;
     grid-gap: var(--settings-padding);
 }
 
