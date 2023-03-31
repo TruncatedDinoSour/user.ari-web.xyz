@@ -163,23 +163,18 @@ textarea {
     padding: var(--settings-padding);
 }
 
-#settings-out *:not(label) {
+#settings-out * {
     width: 100%;
 }
 
-#settings {
-    display: -ms-grid;
-    display: grid;
-    -ms-grid-columns: 3fr var(--settings-padding) 1fr;
-    grid-template-columns: 3fr 1fr;
-    grid-gap: var(--settings-padding);
+#settings,
+#settings * {
+    margin-bottom: var(--comment-section-spacing);
 }
 
 @media only screen and (max-width: 800px) {
     .comment-section > :first-child,
-    .comment-section > :first-child *,
-    #settings,
-    #settings * {
+    .comment-section > :first-child * {
         display: block;
         width: 100%;
         margin-bottom: var(--comment-section-spacing);
