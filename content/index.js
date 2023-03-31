@@ -188,8 +188,8 @@ function load_hash(noscroll) {
 }
 
 function load_settings() {
-    let settings = document.getElementById("settings");
     let rules = document.styleSheets[0].cssRules[0].style;
+    let settings = document.getElementById("settings");
 
     Array.from(rules)
         .filter((v) => v.startsWith("--"))
@@ -200,8 +200,6 @@ function load_settings() {
         });
 
     let style = document.createElement("style");
-    document.head.appendChild(style);
-
     let li = document.createElement("li");
     let textarea = document.createElement("textarea");
 
@@ -232,6 +230,8 @@ function load_settings() {
 
     li.appendChild(textarea);
     settings.appendChild(li);
+
+    document.head.appendChild(style);
 }
 
 async function main() {
