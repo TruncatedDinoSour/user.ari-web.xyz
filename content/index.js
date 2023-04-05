@@ -194,21 +194,25 @@ function load_hash(noscroll) {
 function load_settings() {
     /* load def values */
 
-    let rules = document.styleSheets[0].cssRules[0].style;
+    try {
+        let rules = document.getElementById("style").sheet.cssRules[0].style;
+        let values = document.getElementById("values");
 
-    let values = document.getElementById("values");
+        Array.from(rules)
+            .filter((v) => v.startsWith("--"))
+            .forEach((v) => {
+                let li = document.createElement("li");
+                li.innerText = `${v} = ${rules.getPropertyValue(v)}`;
+                values.appendChild(li);
+            });
+    } catch (e) {
+        console.error(e);
+    }
+
     let settings = document.getElementById("settings");
 
     if (!window.localStorage.getItem("tab"))
         window.localStorage.setItem("tab", "    ");
-
-    Array.from(rules)
-        .filter((v) => v.startsWith("--"))
-        .forEach((v) => {
-            let li = document.createElement("li");
-            li.innerText = `${v} = ${rules.getPropertyValue(v)}`;
-            values.appendChild(li);
-        });
 
     /* load settings */
 
