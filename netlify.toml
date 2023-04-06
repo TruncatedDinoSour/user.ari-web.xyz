@@ -42,7 +42,7 @@
 
     [headers.values]
         Access-Control-Allow-Origin = "ari-web.xyz"
-        Access-Control-Allow-Methods = "GET"
+        Access-Control-Allow-Methods = "*"
 
 # Processing
 [build.processing]
