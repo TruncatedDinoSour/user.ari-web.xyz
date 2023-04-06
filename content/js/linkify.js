@@ -14,9 +14,10 @@ function linkify(input, comment_origin) {
 
         if (word.match(LINKIFY_HASH)) {
             a = document.createElement("a");
-            a.innerText = a.href = word;
 
-            if (comment_origin) a.href = `${comment_origin}/${a.href}`;
+            a.innerText = word;
+            a.href = comment_origin ? `${comment_origin}/${word}` : word;
+
             output.push(a);
         } else
             word.split(LINKIFY_LINK).forEach((word) => {
