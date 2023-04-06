@@ -37,6 +37,13 @@
     status = 404
     force = false
 
+[[headers]]
+    for = "/js/linkify.js"
+
+    [headers.values]
+        Access-Control-Allow-Origin = "ari-web.xyz"
+        Access-Control-Allow-Methods = "GET"
+
 # Processing
 [build.processing]
     skip_processing = false

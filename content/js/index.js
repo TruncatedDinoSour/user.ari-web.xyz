@@ -1,58 +1,11 @@
 "use strict";
 
 const COMMENTS_DEC = 20;
-
-const LINK =
-    /((?:[a-z]+\+)?(?:https?|s?ftp|ssh|telnet|smtp|imap|pop3|ldap):\/\/[a-z0-9\-._~:/?#[\]@!$&'()*+,;%=]+)/i;
-const EMAIL =
-    /([a-z0-9+_-]+(?:\.[a-z0-9+_-]+)*@[a-z0-9+_-]+(?:\.[a-z0-9+_-]+)*)/i;
-const HASH = /^#\d+$/;
 const HIGHLIGHT_CLASS = "highlight-comment";
 
 async function api(endpoint, options) {
     // return await fetch(`http://127.0.0.1:5000/${endpoint}`, options);
     return await fetch(`https://server.ari-web.xyz/${endpoint}`, options);
-}
-
-function linkify(input) {
-    let output = [];
-
-    input.split(/(\s+)/).forEach((word) => {
-        let a;
-
-        if (word.match(HASH)) {
-            a = document.createElement("a");
-            a.href = a.innerText = word;
-            output.push(a);
-        } else
-            word.split(LINK).forEach((word) => {
-                if (word.match(LINK)) {
-                    a = document.createElement("a");
-                    a.target = "_blank";
-                    a.href = a.innerText = word;
-
-                    output.push(a);
-                } else {
-                    word.split(EMAIL).forEach((word) => {
-                        if (word.match(EMAIL)) {
-                            a = document.createElement("a");
-                            a.target = "_blank";
-                            a.href = `mailto:${word}`;
-
-                            a.innerText = word;
-                            output.push(a);
-                        } else {
-                            let last = output[output.length - 1];
-
-                            if (last instanceof Text) last.textContent += word;
-                            else output.push(document.createTextNode(word));
-                        }
-                    });
-                }
-            });
-    });
-
-    return output;
 }
 
 function new_comment(cid, cauthor, ccontent) {
