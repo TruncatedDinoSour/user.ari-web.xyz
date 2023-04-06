@@ -38,7 +38,7 @@
     force = false
 
 [[headers]]
-    for = "/js/linkify.js"
+    for = "/content/js/linkify.js"
 
     [headers.values]
         Access-Control-Allow-Origin = "*"
