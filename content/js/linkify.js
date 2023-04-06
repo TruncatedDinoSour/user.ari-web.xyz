@@ -5,9 +5,8 @@ const LINKIFY_LINK =
 const LINKIFY_EMAIL =
     /([a-z0-9+_-]+(?:\.[a-z0-9+_-]+)*@[a-z0-9+_-]+(?:\.[a-z0-9+_-]+)*)/i;
 const LINKIFY_HASH = /^#\d+$/;
-const LINKIFY_ORIGINS = ["127.0.0.1", "user.ari-web.xyz"];
 
-function linkify(input) {
+function linkify(input, origin) {
     let output = [];
 
     input.split(/(\s+)/).forEach((word) => {
@@ -15,12 +14,9 @@ function linkify(input) {
 
         if (word.match(LINKIFY_HASH)) {
             a = document.createElement("a");
-            a.innerText = word;
-            a.href = `${
-                LINKIFY_ORIGINS.includes(window.location.host)
-                    ? ""
-                    : "https://user.ari-web.xyz/"
-            }#${word}`;
+            a.innerText = a.href = word;
+
+            if (origin) a.href = `${origin}/${a.href}`;
             output.push(a);
         } else
             word.split(LINKIFY_LINK).forEach((word) => {
