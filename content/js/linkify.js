@@ -6,7 +6,7 @@ const LINKIFY_EMAIL =
     /([a-z0-9+_-]+(?:\.[a-z0-9+_-]+)*@[a-z0-9+_-]+(?:\.[a-z0-9+_-]+)*)/i;
 const LINKIFY_HASH = /^#\d+$/;
 
-function linkify(input, origin) {
+function linkify(input, comment_origin) {
     let output = [];
 
     input.split(/(\s+)/).forEach((word) => {
@@ -16,7 +16,7 @@ function linkify(input, origin) {
             a = document.createElement("a");
             a.innerText = a.href = word;
 
-            if (origin) a.href = `${origin}/${a.href}`;
+            if (comment_origin) a.href = `${comment_origin}/${a.href}`;
             output.push(a);
         } else
             word.split(LINKIFY_LINK).forEach((word) => {
