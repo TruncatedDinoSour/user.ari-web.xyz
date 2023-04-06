@@ -41,8 +41,8 @@
     for = "/js/linkify.js"
 
     [headers.values]
-        Access-Control-Allow-Origin = "ari-web.xyz"
-        Access-Control-Allow-Methods = "*"
+        Access-Control-Allow-Origin = "*"
+        Access-Control-Allow-Methods = "GET"
 
 # Processing
 [build.processing]
