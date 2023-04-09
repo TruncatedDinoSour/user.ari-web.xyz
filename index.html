@@ -76,10 +76,7 @@ server source code : <a href="https://server.ari-web.xyz/git">server.ari-web.xyz
 
         <h1>rules</h1>
         <ul>
-            <li>
-                no stealing of usernames ( but also dont trust any author,
-                someone named `ari` might not actually be me )
-            </li>
+            <li>no stealing of usernames</li>
             <li>the conversation and usernames must be legal and decent</li>
             <li>no harrassment, bullying or slurs</li>
             <li>minimal advertising is allowed</li>
@@ -87,9 +84,33 @@ server source code : <a href="https://server.ari-web.xyz/git">server.ari-web.xyz
             <li>
                 <b>
                     breaking the rules may result in deletion of your comment
-                    and / or an IP ban and if needed, in extreme cases a
-                    report to authorities
+                    and / or an IP ban and if needed, in extreme cases a report
+                    to authorities
                 </b>
+            </li>
+        </ul>
+
+        <h1>advice</h1>
+
+        <ul>
+            <li>
+                if you see someone named `ari` saying weird shit, thats probably
+                not me
+            </li>
+            <li>
+                i am lithuanian, so check if the time makes sense, for example
+                in lithuania ( according to javascript ) its `<date id="lttime"
+                    >?</date
+                >` right now ( might not be accurate )
+            </li>
+            <li>
+                if you are being attacked, email me at
+                <a href="mailto:ari.web.xyz@gmail.com">ari.web.xyz@gmail.com</a
+                >, we can try to resolve it
+            </li>
+            <li>
+                everyone is being an asshole to me as of now, i am sorry for the
+                content you might see here
             </li>
         </ul>
 
@@ -104,6 +125,7 @@ server source code : <a href="https://server.ari-web.xyz/git">server.ari-web.xyz
 
         <h2>
             <span id="count">?</span> comment( s ) available on ari-web to read
+            ( this has been currently locked )
         </h2>
 
         <div class="comment-section">
@@ -113,6 +135,7 @@ server source code : <a href="https://server.ari-web.xyz/git">server.ari-web.xyz
                     maxlength="1024"
                     placeholder="? says ..."
                     spellcheck="true"
+                    disabled="true"
                 ></textarea>
                 <button id="send-comment">comment</button>
                 <button onclick="window.localStorage.clear();handle_auth();">

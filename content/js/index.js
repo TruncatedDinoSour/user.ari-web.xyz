@@ -261,6 +261,11 @@ async function main() {
 
     await load_comments(comments, true);
     load_hash();
+
+    document.getElementById("lttime").innerText = new Date().toLocaleString(
+        "lt-LT",
+        { timeZone: "Europe/Vilnius" }
+    );
 }
 
 document.addEventListener("DOMContentLoaded", main);
