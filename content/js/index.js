@@ -134,8 +134,9 @@ function whoami() {
                 window.whoami = t;
                 c.placeholder = `${t} says ...`;
             } else {
-                c.disable = true;
+                c.disable = c.readonly = true;
                 c.style.pointerEvents = "none";
+                c.tabIndex = -1;
             }
         });
 }
