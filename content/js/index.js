@@ -80,9 +80,9 @@ function load_comment_field(comments) {
         if (!(window.whoami && (comment.value = comment.value.trim()))) return;
 
         let data = new FormData();
-        data.set("content", comment.value);
+        data.set("content", comment.value.slice(0, 1024));
 
-        let comment_id = await (
+        let [comment_id, is_admin] = await (
             await api("/", {
                 method: "POST",
                 body: data,
@@ -90,7 +90,7 @@ function load_comment_field(comments) {
                     "api-key": window.localStorage.getItem("api-key") ?? "",
                 },
             })
-        ).text();
+        ).json();
 
         comment.value = "";
 
@@ -118,7 +118,7 @@ function load_comment_field(comments) {
                 comment_id,
                 window.whoami,
                 data.get("content"),
-                window.localStorage.getItem("api-key")
+                is_admin
             )
         );
     };
