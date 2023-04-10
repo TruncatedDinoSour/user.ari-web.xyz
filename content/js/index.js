@@ -77,7 +77,7 @@ function load_comment_field(comments) {
     let send = document.getElementById("send-comment");
 
     send.onclick = async () => {
-        if (!(comment.value = comment.value.trim())) return;
+        if (!(window.whoami && (comment.value = comment.value.trim()))) return;
 
         let data = new FormData();
         data.set("content", comment.value);
@@ -114,7 +114,12 @@ function load_comment_field(comments) {
         comments.old_comments = comments.comments;
 
         comments.prepend(
-            new_comment(comment_id, data.get("author"), data.get("content"))
+            new_comment(
+                comment_id,
+                window.whoami,
+                data.get("content"),
+                window.localStorage.getItem("api-key")
+            )
         );
     };
 }
@@ -123,10 +128,12 @@ function whoami() {
     api("whoami")
         .then((r) => (r.ok ? r.text() : null))
         .then((t) => {
-            if (t)
+            if (t) {
+                window.whoami = t;
                 document.getElementById(
                     "comment"
                 ).placeholder = `${t} says ...`;
+            }
         });
 }
 

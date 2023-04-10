@@ -13,6 +13,7 @@
 
     --author-clr: lightgray;
     --author-sc: gray;
+    --admin-clr: #af5f5f;
 
     --settings-padding: 0.3em;
 
@@ -181,7 +182,7 @@ button {
 }
 
 pre .admin {
-    --author-clr: #af5f5f;
+    --author-clr: var(--admin-clr);
 }
 
 @media only screen and (max-width: 800px) {
