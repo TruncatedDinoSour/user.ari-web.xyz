@@ -8,7 +8,7 @@ async function api(endpoint, options) {
     return await fetch(`https://server.ari-web.xyz/${endpoint}`, options);
 }
 
-function new_comment(cid, cauthor, ccontent) {
+function new_comment(cid, cauthor, ccontent, cadmin) {
     let li = document.createElement("li");
     let author = document.createElement("pre");
     let author_name = document.createElement("pre");
@@ -22,6 +22,8 @@ function new_comment(cid, cauthor, ccontent) {
     }
 
     author_name.innerText = cauthor;
+    if (cadmin) author_name.className = "admin";
+
     author.appendChild(author_name);
     li.appendChild(author);
 
@@ -78,12 +80,16 @@ function load_comment_field(comments) {
         if (!(comment.value = comment.value.trim())) return;
 
         let data = new FormData();
-
-        data.set("author", window.localStorage["username"]);
         data.set("content", comment.value);
 
         let comment_id = await (
-            await api("/", { method: "POST", body: data })
+            await api("/", {
+                method: "POST",
+                body: data,
+                headers: {
+                    "api-key": window.localStorage.getItem("api-key") ?? "",
+                },
+            })
         ).text();
 
         comment.value = "";
@@ -113,13 +119,38 @@ function load_comment_field(comments) {
     };
 }
 
-function handle_auth() {
-    let username = window.localStorage.getItem("username")?.trim();
-    while (!username) username = prompt("username")?.trim();
-    window.localStorage.setItem("username", username);
+function whoami() {
+    api("whoami")
+        .then((r) => (r.ok ? r.text() : null))
+        .then((t) => {
+            if (t)
+                document.getElementById(
+                    "comment"
+                ).placeholder = `${t} says ...`;
+        });
+}
 
-    let comment = document.getElementById("comment");
-    comment.placeholder = comment.title = `${username} says ...`;
+function infask(ask) {
+    let val;
+    while (!val) val = prompt(ask).trim();
+    return val;
+}
+
+function whitelist() {
+    let username = infask("username");
+    let reason = infask("why do you want to join");
+
+    let data = new FormData();
+
+    data.set("content", reason);
+    data.set("author", username);
+
+    api("apply", {
+        method: "POST",
+        body: data,
+    })
+        .then((r) => r.text())
+        .then((t) => alert(t));
 }
 
 function load_hash(noscroll) {
@@ -194,7 +225,8 @@ function load_settings() {
     let style = document.createElement("style");
 
     let css_textarea = document.createElement("textarea");
-    let tab_textarea = document.createElement("textarea");
+    let tab_textarea = document.createElement("input");
+    let api_textarea = document.createElement("input");
 
     css_textarea.oninput = () => {
         style.innerText = css_textarea.value;
@@ -204,6 +236,10 @@ function load_settings() {
     tab_textarea.oninput = () => {
         tab_textarea.value = tab_textarea.value.replaceAll("\\t", "\t");
         window.localStorage.setItem("tab", tab_textarea.value);
+    };
+
+    api_textarea.oninput = () => {
+        window.localStorage.setItem("api-key", api_textarea.value);
     };
 
     settings.appendChild(
@@ -218,11 +254,13 @@ function load_settings() {
         )
     );
 
+    settings.appendChild(container("api-key", api_textarea, "api key"));
+
     document.head.appendChild(style);
 }
 
 function load_textarea_controls() {
-    document.querySelectorAll("textarea").forEach((textarea) => {
+    document.querySelectorAll("textarea,input").forEach((textarea) => {
         textarea.onkeydown = (e) => {
             if (e.key !== "Tab") return;
 
@@ -243,18 +281,67 @@ function load_textarea_controls() {
     });
 }
 
+function toggle_lock(t) {
+    document.getElementById("unlock").innerText = t === "1" ? "un" : "";
+    document.getElementById("comment").disabled = t === "1";
+    document.getElementById("islocked").innerText =
+        t === "1" ? "( locked )" : "";
+}
+
+function load_admin() {
+    if (!window.localStorage.getItem("api-key")) return;
+
+    document.getElementById("admin").style.display = "block";
+
+    document.getElementById("lock-comments").onclick = () => {
+        api("lock", {
+            method: "POST",
+            headers: { "api-key": window.localStorage.getItem("api-key") },
+        })
+            .then((r) => r.text())
+            .then((t) => {
+                toggle_lock(t);
+            });
+    };
+
+    document.getElementById("run-sql").onclick = () => {
+        let data = new FormData();
+        let backup;
+
+        data.set("sql", infask("sql"));
+        if ((backup = prompt("backup").trim())) data.set("backup", backup);
+
+        api("sql", {
+            method: "POST",
+            body: data,
+            headers: { "api-key": window.localStorage.getItem("api-key") },
+        })
+            .then((r) => r.json())
+            .then((t) => {
+                console.log(t);
+                alert(t);
+            });
+    };
+}
+
 async function main() {
-    handle_auth();
     load_settings();
+    load_admin();
 
     let comments = document.getElementById("comments");
+    let count = document.getElementById("count");
 
     comments.old_comments = await (await api("total")).text();
 
     comments.comments = window.location.hash
         ? window.location.hash.slice(1)
         : comments.old_comments;
-    document.getElementById("count").innerText = comments.old_comments;
+
+    count.innerText = comments.old_comments;
+
+    api("lock")
+        .then((r) => r.text())
+        .then((t) => toggle_lock(t));
 
     load_comment_field(comments);
     load_textarea_controls();
@@ -262,10 +349,11 @@ async function main() {
     await load_comments(comments, true);
     load_hash();
 
-    document.getElementById("lttime").innerText = new Date().toLocaleString(
-        "lt-LT",
-        { timeZone: "Europe/Vilnius" }
-    );
+    try {
+        whoami();
+    } catch (e) {
+        console.error(e);
+    }
 }
 
 document.addEventListener("DOMContentLoaded", main);

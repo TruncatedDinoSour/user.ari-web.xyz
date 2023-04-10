@@ -100,8 +100,12 @@ textarea {
     border-left: var(--quote-border);
 }
 
-.comment-section > :first-child > button {
+button {
     background-color: var(--bg1);
+}
+
+#admin button {
+    padding: 1em;
 }
 
 #comments {
@@ -159,17 +163,25 @@ textarea {
     --bg: var(--bg1);
 }
 
-#settings-out {
+#settings-out,
+#apply {
     padding: var(--settings-padding);
 }
 
-#settings-out * {
+#settings-out *,
+#apply * {
     width: 100%;
 }
 
 #settings,
-#settings * {
+#settings *,
+#apply,
+#apply * {
     margin-bottom: var(--comment-section-spacing);
+}
+
+pre .admin {
+    --author-clr: #af5f5f;
 }
 
 @media only screen and (max-width: 800px) {

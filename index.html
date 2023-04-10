@@ -109,8 +109,16 @@ server source code : <a href="https://server.ari-web.xyz/git">server.ari-web.xyz
                 >, we can try to resolve it
             </li>
             <li>
-                everyone is being an asshole to me as of now, i am sorry for the
-                content you might see here
+                everyone is being
+                <a href="https://blog.ari-web.xyz/b/userari-webxyz-situation/"
+                    >an asshole to me as of now</a
+                >, i am sorry for the content you might see here
+            </li>
+            <li>
+                <b
+                    >not rlly advice, but a requirement : press the `apply to
+                    whitelist` button to apply to be able to comment</b
+                >
             </li>
         </ul>
 
@@ -123,13 +131,21 @@ server source code : <a href="https://server.ari-web.xyz/git">server.ari-web.xyz
             </div>
         </details>
 
+        <details id="admin" style="display:none">
+            <summary>admin</summary>
+
+            <ul>
+                <li>
+                    <button id="lock-comments">
+                        <span id="unlock">( un )</span>lock comments section
+                    </button>
+                </li>
+                <li><button id="run-sql">run sql</button></li>
+            </ul>
+        </details>
+
         <h2>
-            <span id="count">?</span> comment( s ) available on ari-web to read
-            ( this has been
-            <a href="https://blog.ari-web.xyz/b/userari-webxyz-situation/"
-                >currently locked due to pure idiocy of biggots</a
-            >
-            )
+            <span id="count">?</span> comment( s ) available on ari-web to read <span id="islocked"></span>
         </h2>
 
         <div class="comment-section">
@@ -137,14 +153,12 @@ server source code : <a href="https://server.ari-web.xyz/git">server.ari-web.xyz
                 <textarea
                     id="comment"
                     maxlength="1024"
-                    placeholder="? says ..."
+                    placeholder="apply to be able to comment"
                     spellcheck="true"
                     disabled="true"
                 ></textarea>
                 <button id="send-comment">comment</button>
-                <button onclick="window.localStorage.clear();handle_auth();">
-                    change username
-                </button>
+                <button onclick="whitelist()">apply to whitelist</button>
             </div>
             <ul id="comments"></ul>
         </div>
