@@ -148,7 +148,9 @@ function infask(ask) {
 }
 
 function whitelist() {
-    let username = infask("username");
+    let username = infask(
+        "username ( you cannot change it, so pick a good one )"
+    );
     let reason = infask("why do you want to join");
 
     let data = new FormData();
