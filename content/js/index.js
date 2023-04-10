@@ -128,11 +128,14 @@ function whoami() {
     api("whoami")
         .then((r) => (r.ok ? r.text() : null))
         .then((t) => {
+            let c = document.getElementById("comment");
+
             if (t) {
                 window.whoami = t;
-                document.getElementById(
-                    "comment"
-                ).placeholder = `${t} says ...`;
+                c.placeholder = `${t} says ...`;
+            } else {
+                c.disable = true;
+                c.style.pointerEvents = "none";
             }
         });
 }
@@ -289,8 +292,10 @@ function load_textarea_controls() {
 }
 
 function toggle_lock(t) {
+    let c = document.getElementById("comment");
+
     document.getElementById("unlock").innerText = t === "1" ? "un" : "";
-    document.getElementById("comment").disabled = t === "1";
+    if (!c.disable) c.disabled = t === "1";
     document.getElementById("islocked").innerText =
         t === "1" ? "( locked )" : "";
 }

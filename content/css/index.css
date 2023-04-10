@@ -181,8 +181,9 @@ button {
     margin-bottom: var(--comment-section-spacing);
 }
 
-pre .admin {
+.admin {
     --author-clr: var(--admin-clr);
+    color: var(--author-clr);
 }
 
 @media only screen and (max-width: 800px) {
