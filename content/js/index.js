@@ -4,8 +4,8 @@ const COMMENTS_DEC = 20;
 const HIGHLIGHT_CLASS = "highlight-comment";
 
 async function api(endpoint, options) {
-    // return await fetch(`http://127.0.0.1:5000/${endpoint}`, options);
-    return await fetch(`https://server.ari-web.xyz/${endpoint}`, options);
+    return await fetch(`http://127.0.0.1:5000/${endpoint}`, options);
+    // return await fetch(`https://server.ari-web.xyz/${endpoint}`, options);
 }
 
 function new_comment(cid, cauthor, ccontent, cadmin) {
@@ -303,45 +303,8 @@ function toggle_lock(t) {
         t === "1" ? "( locked )" : "";
 }
 
-function load_admin() {
-    if (!window.localStorage.getItem("api-key")) return;
-
-    document.getElementById("admin").style.display = "block";
-
-    document.getElementById("lock-comments").onclick = () => {
-        api("lock", {
-            method: "POST",
-            headers: { "api-key": window.localStorage.getItem("api-key") },
-        })
-            .then((r) => r.text())
-            .then((t) => {
-                toggle_lock(t);
-            });
-    };
-
-    document.getElementById("run-sql").onclick = () => {
-        let data = new FormData();
-        let backup;
-
-        data.set("sql", infask("sql"));
-        if ((backup = prompt("backup").trim())) data.set("backup", backup);
-
-        api("sql", {
-            method: "POST",
-            body: data,
-            headers: { "api-key": window.localStorage.getItem("api-key") },
-        })
-            .then((r) => r.json())
-            .then((t) => {
-                console.log(t);
-                alert(t);
-            });
-    };
-}
-
 async function main() {
     load_settings();
-    load_admin();
 
     let comments = document.getElementById("comments");
     let count = document.getElementById("count");
