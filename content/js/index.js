@@ -297,8 +297,8 @@ function load_textarea_controls() {
 function toggle_lock(t) {
     let c = document.getElementById("comment");
 
-    document.getElementById("unlock").innerText = t === "1" ? "un" : "";
     if (!c.disable) c.disabled = t === "1";
+
     document.getElementById("islocked").innerText =
         t === "1" ? "( locked )" : "";
 }
