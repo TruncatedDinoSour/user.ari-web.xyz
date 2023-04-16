@@ -4,8 +4,8 @@ const COMMENTS_DEC = 20;
 const HIGHLIGHT_CLASS = "highlight-comment";
 
 async function api(endpoint, options) {
-    return await fetch(`http://127.0.0.1:5000/${endpoint}`, options);
-    // return await fetch(`https://server.ari-web.xyz/${endpoint}`, options);
+    // return await fetch(`http://127.0.0.1:5000/${endpoint}`, options);
+    return await fetch(`https://server.ari-web.xyz/${endpoint}`, options);
 }
 
 function new_comment(cid, cauthor, ccontent, cadmin) {
