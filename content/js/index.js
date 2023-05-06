@@ -124,19 +124,32 @@ function load_comment_field(comments) {
     };
 }
 
+function toggle_comment(state) {
+    let s = document.getElementById("send-comment");
+
+    s.disabled = !state;
+
+    if (state) {
+        s.innerText = "comment";
+        s.style.pointerEvents = "initial";
+    } else {
+        s.innerText = "comment ( disabled )";
+        s.style.pointerEvents = "none";
+    }
+}
+
 function whoami() {
     api("whoami")
         .then((r) => (r.ok ? r.text() : null))
         .then((t) => {
-            let c = document.getElementById("comment");
-
             if (t) {
                 window.whoami = t;
-                c.placeholder = `${t} says ...`;
+                document.getElementById(
+                    "comment"
+                ).placeholder = `${t} says ...`;
             } else {
-                c.disable = c.readonly = true;
-                c.style.pointerEvents = "none";
-                c.tabIndex = -1;
+                toggle_comment(false);
+                window.whoami = undefined;
             }
         });
 }
@@ -297,14 +310,54 @@ function load_textarea_controls() {
 function toggle_lock(t) {
     let c = document.getElementById("comment");
 
-    if (!c.disable) c.disabled = t === "1";
+    c.disabled = t === "1";
 
     document.getElementById("islocked").innerText =
         t === "1" ? "( locked )" : "";
+
+    toggle_comment(t === "1");
+}
+
+function load_anon_field(comments) {
+    let comment = document.getElementById("comment");
+    let anon = document.getElementById("send-anon-comment");
+
+    anon.onclick = async () => {
+        if (!(comment.value = comment.value.trim())) return;
+
+        let data = new FormData();
+        data.set("content", comment.value.slice(0, 1024));
+
+        let cid = parseInt(
+            await (
+                await api("anon", {
+                    method: "POST",
+                    body: data,
+                    headers: {
+                        "api-key": window.localStorage.getItem("api-key") ?? "",
+                    },
+                })
+            ).text()
+        );
+
+        comment.value = "";
+
+        if (isNaN(cid)) return alert("this has been said already");
+
+        comments.prepend(
+            new_comment(cid, window.whoami ?? "anon", data.get("content"))
+        );
+    };
 }
 
 async function main() {
     load_settings();
+
+    try {
+        whoami();
+    } catch (e) {
+        console.error(e);
+    }
 
     let comments = document.getElementById("comments");
     let count = document.getElementById("count");
@@ -322,16 +375,11 @@ async function main() {
         .then((t) => toggle_lock(t));
 
     load_comment_field(comments);
+    load_anon_field(comments);
     load_textarea_controls();
 
     await load_comments(comments, true);
     load_hash();
-
-    try {
-        whoami();
-    } catch (e) {
-        console.error(e);
-    }
 }
 
 document.addEventListener("DOMContentLoaded", main);

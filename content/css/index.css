@@ -90,8 +90,8 @@ textarea {
 .comment-section > :first-child {
     display: -ms-grid;
     display: grid;
-    -ms-grid-columns: 4fr 1em 1fr 1em 1fr;
-    grid-template-columns: 4fr 1fr 1fr;
+    -ms-grid-columns: 3.7fr 1em 1fr 1em 1fr 1em 1fr;
+    grid-template-columns: 3.7fr 1fr 1fr 1fr;
     grid-gap: 1em;
 }
 
