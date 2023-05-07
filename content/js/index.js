@@ -328,25 +328,21 @@ function load_anon_field(comments) {
         let data = new FormData();
         data.set("content", comment.value.slice(0, 1024));
 
-        let cid = parseInt(
-            await (
-                await api("anon", {
-                    method: "POST",
-                    body: data,
-                    headers: {
-                        "api-key": window.localStorage.getItem("api-key") ?? "",
-                    },
-                })
-            ).text()
-        );
+        await api("anon", {
+            method: "POST",
+            body: data,
+            headers: {
+                "api-key": window.localStorage.getItem("api-key") ?? "",
+            },
+        }).then(async (r) => {
+            if (!r.ok) return alert(await r.text());
 
-        comment.value = "";
+            comment.value = "";
 
-        if (isNaN(cid)) return alert("this has been said already");
-
-        comments.prepend(
-            new_comment(cid, window.whoami ?? "anon", data.get("content"))
-        );
+            comments.prepend(
+                new_comment(`anon-${Math.round(Math.random() * 1e11)}`, window.whoami ?? "anon", data.get("content"))
+            );
+        });
     };
 }
 
