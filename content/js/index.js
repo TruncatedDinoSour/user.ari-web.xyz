@@ -315,7 +315,7 @@ function toggle_lock(t) {
     document.getElementById("islocked").innerText =
         t === "1" ? "( locked )" : "";
 
-    toggle_comment(t === "1");
+    toggle_comment(t !== "1");
 }
 
 function load_anon_field(comments) {
