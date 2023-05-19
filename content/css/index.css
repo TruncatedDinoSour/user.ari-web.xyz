@@ -59,6 +59,10 @@ pre {
     margin: 0;
 }
 
+pre img {
+    height: 1em;
+}
+
 #count,
 a {
     color: var(--pr);
