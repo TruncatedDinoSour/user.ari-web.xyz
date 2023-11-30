@@ -1,3 +1,5 @@
+# deprecated -- use <https://us.ari.lt/> instead
+
 # Ari-web users comments & opinions
 
 [![Netlify Status](https://api.netlify.com/api/v1/badges/5f846b43-7bf9-4f7a-aa01-c57ebad1e26c/deploy-status)](https://app.netlify.com/sites/user-ari-web/deploys)

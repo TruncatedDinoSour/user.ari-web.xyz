@@ -1,0 +1,75 @@
+[build]
+    command = "npm run build"
+
+[[redirects]]
+    from = "/git/*"
+    to = "https://ari-web.xyz/gh/user.ari-web.xyz/:splat"
+    force = true
+    status = 301
+
+[[redirects]]
+    from = "/favicon.ico"
+    to = "https://ari-web.xyz/favicon.ico"
+    status = 200
+    force = true
+
+[[redirects]]
+    from = "/robots.txt"
+    to = "https://ari-web.xyz/robots.txt"
+    status = 200
+    force = true
+
+[[redirects]]
+    from = "/sitemap.xml"
+    to = "https://ari-web.xyz/sitemap.xml"
+    status = 200
+    force = true
+
+[[redirects]]
+    from = "/netlify.toml"
+    to = "https://ari-web.xyz/404.files.xyz"
+    status = 404
+    force = true
+
+[[redirects]]
+    from = "/*"
+    to = "https://ari-web.xyz/404.comment.xyz"
+    status = 404
+    force = false
+
+[[headers]]
+    for = "/content/js/linkify.js"
+
+    [headers.values]
+        Access-Control-Allow-Origin = "ari-web.xyz"
+        Access-Control-Allow-Methods = "GET"
+
+# Processing
+[build.processing]
+    skip_processing = false
+
+[build.processing.html]
+    pretty_urls = false
+
+[build.processing.css]
+    bundle = false
+    minify = true
+
+[build.processing.js]
+    bundle = false
+    minify = true
+
+[build.processing.images]
+    compress = false
+# --------------
+
+[[headers]]
+    for = "/*"
+
+    [headers.values]
+        Strict-Transport-Security = "max-age=63072000; includeSubDomains; preload"
+        X-Frame-Options = "deny"
+        X-Content-Type-Options = "nosniff"
+        Content-Security-Policy = "upgrade-insecure-requests"
+        X-Permitted-Cross-Domain-Policies = "none"
+        Referrer-Policy = "no-referrer"
